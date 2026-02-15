@@ -149,6 +149,7 @@ Baseline status
 Activity classification
 
 Event history
+
 🔐 Privacy & Data Handling
 What Is Monitored
 
