@@ -444,10 +444,13 @@ A: All data stored locally. No remote access.
 
 ---
 
-## 📜 LICENSE
 
-MIT License - Free to use, modify, and distribute.
+## 📜 License
 
+© 2026 Abhi. All rights reserved.
+
+This repository is provided for viewing and educational purposes only.
+No permission is granted to use, copy, modify, or redistribute this code.
 ---
 
 ## ⚡ QUICK START CHECKLIST
