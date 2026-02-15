@@ -93,7 +93,135 @@ The author assumes **no responsibility for misuse** of this software.
 - **Node.js v18 LTS**
 - npm (included with Node.js)
 
-### Install Dependencies
-```bash
 cd threat-detection-desktop
 npm install
+
+###🚀 How It Works
+First Launch
+
+Application starts
+
+Security setup modal appears
+
+User selects security questions
+
+Answers are stored securely
+
+Dashboard opens
+
+Monitoring
+
+User starts monitoring from the dashboard
+
+Typing behavior is analyzed system-wide
+
+Baseline profile is created after sufficient activity
+
+Threat score updates continuously
+
+Threat Detection
+
+Normal typing → Low threat score
+
+Deviating behavior → Elevated threat score
+
+Alert prompts verification
+
+Optional system lock on repeated failure
+
+📊 Monitored Metrics
+Behavioral Metrics
+
+Typing speed (WPM)
+
+Key dwell time
+
+Timing consistency
+
+Session duration
+
+Threat Analysis
+
+Threat score (0–100%)
+
+Baseline status
+
+Activity classification
+
+Event history
+🔐 Privacy & Data Handling
+What Is Monitored
+
+Keystroke timing patterns
+
+Typing rhythm and speed
+
+Statistical metadata
+
+What Is NOT Monitored
+
+Actual text content
+
+Passwords
+
+Screen activity
+
+Personal data
+
+Data Storage
+
+All data stored locally
+
+No cloud services
+
+No external servers
+
+No network transmission
+
+🎛️ Controls
+System Tray
+
+Open dashboard
+
+Start / stop monitoring
+
+View status
+
+Quit application
+
+Keyboard Shortcut
+
+Ctrl + Shift + T (Windows/Linux)
+
+Cmd + Shift + T (macOS)
+
+🚧 Limitations
+
+Single-user baseline
+
+No remote alerts
+
+No multi-device synchronization
+
+Local-only analysis
+
+🔮 Future Enhancements
+
+Multi-user support
+
+Remote alerting
+
+Admin dashboard
+
+Centralized logging
+
+Optional cloud sync
+
+Mobile companion app
+
+📜 License
+
+© 2026 Abhi. All rights reserved.
+
+This repository is provided for viewing and educational purposes only.
+No permission is granted to use, copy, modify, or redistribute this code.
