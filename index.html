@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThreatGuard - Desktop Insider Threat Detection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Security Setup Modal -->
+    <div id="setup-modal" class="modal">
+        <div class="modal-content">
+            <h2>🔐 Initial Security Setup</h2>
+            <p>Configure security questions for identity verification</p>
+            <div id="questions-list"></div>
+            <button id="save-questions" class="btn">Save & Start Monitoring</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="hidden">
+        <header>
+            <h1>🔒 THREAT<span>GUARD</span></h1>
+            <div class="status">
+                <span class="dot" id="status-dot"></span>
+                <span id="status-text">MONITORING INACTIVE</span>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- System-wide Monitoring Notice -->
+            <div class="notice-banner">
+                <div class="notice-icon">📡</div>
+                <div class="notice-text">
+                    <h3>System-Wide Monitoring Active</h3>
+                    <p>Tracking all typing across your entire system (Chrome, Word, Email, etc.)</p>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">⌨️</div>
+                    <div class="stat-value" id="keystrokes">0</div>
+                    <div class="stat-label">System Keystrokes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-value" id="wpm">0</div>
+                    <div class="stat-label">WPM</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value" id="dwell">0ms</div>
+                    <div class="stat-label">Avg Dwell</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🕐</div>
+                    <div class="stat-value" id="uptime">00:00</div>
+                    <div class="stat-label">Session Time</div>
+                </div>
+            </div>
+
+            <!-- Threat Score -->
+            <div class="threat-section">
+                <h2>REAL-TIME THREAT ASSESSMENT</h2>
+                <div class="threat-container">
+                    <div class="circle-progress">
+                        <svg viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="80" class="bg"></circle>
+                            <circle cx="100" cy="100" r="80" class="progress" id="threat-circle"></circle>
+                        </svg>
+                        <div class="score">
+                            <span id="threat-score">0</span>%
+                        </div>
+                    </div>
+                    <div class="status-badge" id="status-badge">NORMAL BEHAVIOR</div>
+                    <div class="baseline-status" id="baseline-status">
+                        Collecting data... <span id="baseline-progress">0/100</span> keystrokes
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Monitor -->
+            <div class="activity-section">
+                <h3>Live Activity Monitor</h3>
+                <div class="activity-grid">
+                    <div class="activity-item">
+                        <span class="activity-label">Current Application:</span>
+                        <span class="activity-value" id="current-app">Monitoring all apps</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-label">Baseline Status:</span>
+                        <span class="activity-value" id="baseline-text">Not Established</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-label">Threat Level:</span>
+                        <span class="activity-value" id="threat-level">Low</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="log-section">
+                <h3>Security Events Log</h3>
+                <div id="activity-log" class="log-container"></div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button id="start-monitoring" class="btn">▶ Start Monitoring</button>
+                <button id="stop-monitoring" class="btn secondary">⏸ Stop Monitoring</button>
+                <button id="reset-btn" class="btn secondary">Reset Session</button>
+                <button id="export-btn" class="btn secondary">Export Data</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Alert Popup -->
+    <div id="alert-popup" class="alert-popup hidden">
+        <div class="alert-header">
+            <span>🚨 HIGH THREAT DETECTED</span>
+            <button id="close-alert">×</button>
+        </div>
+        <div class="alert-body">
+            <p>Typing pattern significantly different from baseline</p>
+            <div class="threat-bar">
+                <div id="alert-bar" class="threat-fill"></div>
+            </div>
+            <p class="threat-percent" id="alert-percent">0%</p>
+        </div>
+        <div class="alert-actions">
+            <button id="verify-btn" class="btn">✓ It's Me</button>
+            <button id="dismiss-btn" class="btn secondary">Lock System</button>
+        </div>
+    </div>
+
+    <!-- Security Challenge Modal -->
+    <div id="challenge-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>🔒 Identity Verification Required</h2>
+            <p id="challenge-question">Question here</p>
+            <input type="text" id="challenge-answer" placeholder="Your answer">
+            <p class="attempts">Attempts Remaining: <span id="attempts-left">3</span>/3</p>
+            <div id="feedback" class="feedback hidden"></div>
+            <div class="modal-actions">
+                <button id="submit-answer" class="btn">Submit Answer</button>
+                <button id="cancel-challenge" class="btn secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lockscreen (Full Screen) -->
+    <div id="lockscreen" class="lockscreen hidden">
+        <div class="lock-content">
+            <div class="lock-icon">🔒</div>
+            <h1>SYSTEM LOCKED</h1>
+            <p class="lock-subtitle">Unauthorized Activity Detected</p>
+            <div class="lock-info">
+                <p>Reason: <span id="lock-reason">--</span></p>
+                <p>Time: <span id="lock-time">--</span></p>
+                <p>Threat Score: <span id="lock-threat">--</span>%</p>
+            </div>
+            <div class="lock-message">
+                <p>⚠️ This system has been locked due to suspicious typing patterns.</p>
+                <p>Security team has been notified.</p>
+            </div>
+            <input type="password" id="unlock-pass" placeholder="Enter password to unlock">
+            <button id="unlock-btn" class="btn">Unlock System</button>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
